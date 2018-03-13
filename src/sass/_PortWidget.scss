@@ -1,6 +1,7 @@
 .srd-port{
   width: 15px;
   height: 15px;
+  border-radius: 100%;
   background: rgba(white,0.1);
   
   &:hover,&.selected{

@@ -23,7 +23,7 @@ export class DefaultPortLabel extends BaseWidget<DefaultPortLabelProps, DefaultP
 
 	render() {
 		var port = <PortWidget node={this.props.model.getParent()} name={this.props.model.name} />;
-		var label = <div className="name">{this.props.model.label}</div>;
+		var label = <div  className="name hide">{this.props.model.label}</div>;
 
 		return (
 			<div {...this.getProps()}>

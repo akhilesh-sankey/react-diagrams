@@ -26,6 +26,12 @@
     }
   }
 
+.portConf{
+    position: absolute;
+    margin-top: -10px;
+    z-index: 1;
+}
+
   &__name {
     flex-grow: 1;
     padding: 20px 10px;
