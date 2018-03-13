@@ -16,16 +16,14 @@ export default () => {
 	node1.setPosition(100, 100);
 
 	//3-B) create another default node
-	var node2 = new DefaultNodeModel("Node 2", "rgb(192,255,0)");
-	let port2 = node2.addInPort("In");
+	var node2 = new DefaultNodeModel("", "rgb(192,255,0)");
+	
 	node2.setPosition(400, 100);
 
 	// link the ports
-	let link1 = port1.link(port2);
-	(link1 as DefaultLinkModel).addLabel("Hello World!");
-
+	
 	//4) add the models to the root graph
-	model.addAll(node1, node2, link1);
+	model.addAll(node1, node2);
 
 	//5) load model into engine
 	engine.setDiagramModel(model);

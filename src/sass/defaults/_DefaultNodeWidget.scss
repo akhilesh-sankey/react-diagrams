@@ -3,12 +3,13 @@
   border-radius: 5px;
   font-family: sans-serif;
   color: white;
-  border: solid 2px black;
   overflow: visible;
   font-size: 11px;
+  height:50px;
+  
 
   &__title {
-    background: rgba(black, 0.3);
+   
     display: flex;
     white-space: nowrap;
     > * {
@@ -27,7 +28,7 @@
 
   &__name {
     flex-grow: 1;
-    padding: 5px 5px;
+    padding: 20px 10px;
   }
 
   &__ports {
