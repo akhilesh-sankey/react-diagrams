@@ -5,6 +5,10 @@
   overflow: visible;
   font-size: 11px;
   text-align: -webkit-center;
+
+  &:hover > .srd-default-node__ports {
+    visibility: visible;
+}
   
    &--selected{
     > * {
@@ -12,6 +16,7 @@
       border-radius: 5px;
       visibility: visible !important;
     }
+    
   }
 
   &__title {
