@@ -14,5 +14,6 @@ export interface DefaultNodeState {
 export declare class DefaultNodeWidget extends BaseWidget<DefaultNodeProps, DefaultNodeState> {
     constructor(props: DefaultNodeProps);
     generatePort(port: any): JSX.Element;
+    getClassName(): string;
     render(): JSX.Element;
 }
