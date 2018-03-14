@@ -24,26 +24,31 @@ export class DefaultNodeWidget extends BaseWidget<DefaultNodeProps, DefaultNodeS
 	generatePort(port) {
 		return <DefaultPortLabel model={port} key={port.id} />;
 	}
+	getClassName() {
+		return "node " + super.getClassName() + (this.props.node.isSelected() ? this.bem("--selected") : "");
+	}
 
 	render() {
 		return (
-			<div>
+			<div {...this.getProps()} >
 				<div  className={this.bem("__ports")}>
 					<div className={this.bem("__in")}>
 						{_.map(this.props.node.getInPorts(), this.generatePort.bind(this))}
 					</div>
 				</div>
-			<div {...this.getProps()} style={{ background: this.props.node.color }}>
-				<div className={this.bem("__title")}>
-					<div className={this.bem("__name")}>{this.props.node.name}</div>
+				<div {...this.getProps()} style={{ background: this.props.node.color }}>
+					<div className={this.bem("__title")}>
+						<div className={this.bem("__name")}>{this.props.node.name}</div>
+					</div>
+					
 				</div>
-				<div className={this.bem("__ports")}>
-					<div className={this.bem("__out")}>
+				<div {...this.getProps()} className={this.bem("__ports")}>
+					<div {...this.getProps()} className={this.bem("__out")}>
 						{_.map(this.props.node.getOutPorts(), this.generatePort.bind(this))}
 					</div>
 				</div>
 			</div>
-			</div>
+			
 		);
 	}
 }

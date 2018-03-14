@@ -8,7 +8,11 @@
 
   &--selected{
     > * {
-      border-color:rgb(0,192,255) !important;
+      //border: 1px solid red !important;
+      //border-radius: 5px;
+    }
+    > .srd-default-node_port{
+      visibility: hidden;
     }
   }
 }
