@@ -22,8 +22,8 @@ export class DefaultLinkModel extends LinkModel<DefaultLinkModelListener> {
 
 	constructor(type: string = "default") {
 		super(type);
-		this.color = "rgba(255,255,255,0.5)";
-		this.width = 3;
+		this.color = "rgb(165,165,165,1.0)";
+		this.width = 2.2;
 		this.curvyness = 50;
 	}
 
