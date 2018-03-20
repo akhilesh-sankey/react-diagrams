@@ -1,6 +1,6 @@
 .srd-default-node {
   border-radius: 5px;
-  font-family: sans-serif;
+  //font-family: sans-serif;
   color: white;
   overflow: visible;
   font-size: 11px;
@@ -61,6 +61,7 @@
   &__name:empty{
     //flex-grow: 1;
     padding-left:0px;
+     padding-right: 0px;
   }
 
   &__ports {
