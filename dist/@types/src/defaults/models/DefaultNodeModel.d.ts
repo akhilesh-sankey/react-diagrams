@@ -7,10 +7,11 @@ import { DiagramEngine } from "../../DiagramEngine";
 export declare class DefaultNodeModel extends NodeModel {
     name: string;
     color: string;
+    bgImage: string;
     ports: {
         [s: string]: DefaultPortModel;
     };
-    constructor(name?: string, color?: string);
+    constructor(name?: string, color?: string, bgImage?: string);
     addInPort(label: string): DefaultPortModel;
     addOutPort(label: string): DefaultPortModel;
     deSerialize(object: any, engine: DiagramEngine): void;
@@ -37,6 +38,7 @@ export declare class DefaultNodeModel extends NodeModel {
     } & {
         name: string;
         color: string;
+        bgImage: string;
     };
     getInPorts(): DefaultPortModel[];
     getOutPorts(): DefaultPortModel[];
