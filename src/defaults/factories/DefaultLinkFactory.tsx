@@ -3,6 +3,7 @@ import { DefaultLinkWidget } from "../widgets/DefaultLinkWidget";
 import { DiagramEngine } from "../../DiagramEngine";
 import { AbstractLinkFactory } from "../../factories/AbstractLinkFactory";
 import { DefaultLinkModel } from "../models/DefaultLinkModel";
+import { Toolkit } from "../../main";
 
 /**
  * @author Dylan Vorster
@@ -24,12 +25,14 @@ export class DefaultLinkFactory extends AbstractLinkFactory<DefaultLinkModel> {
 	}
 
 	generateLinkSegment(model: DefaultLinkModel, widget: DefaultLinkWidget, selected: boolean, path: string) {
+		var markerId= Toolkit.UID();
+		var markerEndUrl = "url(#"+markerId+")";
 		return (
 			<g>
 				<defs>
-					<marker id="arrow" markerWidth="100" markerHeight="15" refX="10" refY="2.7" 
-					orient="auto" markerUnits="strokeWidth" viewBox="0 0 20 20">
-					<path d="M0,0 L0,6 L9,3 z" fill="#f00 !important" />
+					<marker id={markerId} markerWidth="8" markerHeight="8" refX="3.5" refY="3"
+					orient="auto" markerUnits="strokeWidth">
+					<path d="M0,0 L0,6 L3.5,3 z" className={selected ? widget.bem("--marker-selected") : widget.bem("-marker")} />
 					</marker>
 				</defs>
 				<path
@@ -38,8 +41,8 @@ export class DefaultLinkFactory extends AbstractLinkFactory<DefaultLinkModel> {
 					strokeWidth={model.width}
 					stroke={model.color}
 					d={path}
-					marker-end="url(#arrow)"
-				/>	
+					marker-end={markerEndUrl}
+				/>
 			</g>
 		);
 	}

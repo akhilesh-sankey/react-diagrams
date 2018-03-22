@@ -20,6 +20,15 @@
     // animation: dash 1s linear infinite;
   }
 
+  &-marker{
+    fill: rgb(165,165,165) !important;
+  }
+
+  &--marker-selected{
+    fill: rgb(50,50,50) !important;
+    pointer-events:all;
+  }
+
   &__label {
     pointer-events: none;
 
