@@ -41,7 +41,7 @@ export class DefaultLinkFactory extends AbstractLinkFactory<DefaultLinkModel> {
 					strokeWidth={model.width}
 					stroke={model.color}
 					d={path}
-					marker-end={markerEndUrl}
+					markerEnd={markerEndUrl}
 				/>
 			</g>
 		);
