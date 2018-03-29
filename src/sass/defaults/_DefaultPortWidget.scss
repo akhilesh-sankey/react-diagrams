@@ -5,13 +5,13 @@
   //margin-top: 1px;
   //margin-top: -5px;
   //position: absolute;
-  z-index: 1;  
+  z-index: 1;
   > * {
     align-self: center;
   }
 
   &__name {
-    display: none;
+    visibility: hidden;
     padding: 0 30px;
   }
    &--in{
@@ -27,12 +27,12 @@
     margin-top: -4px;
 
     #{$p}__name {
-      
+
       justify-content: flex-end;
       text-align: right;
     }
   }
 }
 .hide{
-  display: none;
+  visibility: hidden;
 }
