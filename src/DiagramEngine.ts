@@ -505,8 +505,12 @@ export class DiagramEngine extends BaseEntity<DiagramEngineListener> {
 			_.concat(allNodesCoords, allPortsCoords, allPointsCoords),
 			item => item.x + item.width
 		);
-		const maxX = Math.max(maxXElement.x + maxXElement.width, canvas.offsetWidth);
-
+		let maxX; //= Math.max(maxXElement.x + maxXElement.width, canvas.offsetWidth);
+		if(maxXElement==undefined){
+			 maxX = Math.max(allNodesCoords[0].x + 0, canvas.offsetWidth);
+		}else{
+			 maxX = Math.max(maxXElement.x + maxXElement.width, canvas.offsetWidth);
+		}
 		const minY =
 			Math.floor(
 				Math.min(_.minBy(_.concat(allNodesCoords, allPortsCoords, allPointsCoords), item => item.y).y, 0) /
@@ -516,8 +520,12 @@ export class DiagramEngine extends BaseEntity<DiagramEngineListener> {
 			_.concat(allNodesCoords, allPortsCoords, allPointsCoords),
 			item => item.y + item.height
 		);
-		const maxY = Math.max(maxYElement.y + maxYElement.height, canvas.offsetHeight);
-
+		let maxY; //= Math.max(maxYElement.y + maxYElement.height, canvas.offsetHeight);
+		if(maxYElement==undefined){
+			 maxX = Math.max(allNodesCoords[0].y + 0, canvas.offsetHeight);
+		}else{
+			 maxX = Math.max(maxYElement.y + maxYElement.height, canvas.offsetHeight);
+		}
 		return {
 			width: Math.ceil(Math.abs(minX) + maxX),
 			hAdjustmentFactor: Math.abs(minX) / ROUTING_SCALING_FACTOR + 1,
