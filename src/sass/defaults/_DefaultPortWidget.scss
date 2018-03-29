@@ -11,7 +11,7 @@
   }
 
   &__name {
-    visibility: hidden;
+    display: none;
     padding: 0 30px;
   }
    &--in{
@@ -34,5 +34,5 @@
   }
 }
 .hide{
-  visibility: hidden;
+  display: none;
 }
