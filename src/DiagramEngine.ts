@@ -522,9 +522,9 @@ export class DiagramEngine extends BaseEntity<DiagramEngineListener> {
 		);
 		let maxY; //= Math.max(maxYElement.y + maxYElement.height, canvas.offsetHeight);
 		if(maxYElement==undefined){
-			 maxX = Math.max(allNodesCoords[0].y + 0, canvas.offsetHeight);
+			maxY = Math.max(allNodesCoords[0].y + 0, canvas.offsetHeight);
 		}else{
-			 maxX = Math.max(maxYElement.y + maxYElement.height, canvas.offsetHeight);
+			maxY = Math.max(maxYElement.y + maxYElement.height, canvas.offsetHeight);
 		}
 		return {
 			width: Math.ceil(Math.abs(minX) + maxX),
