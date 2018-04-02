@@ -30,7 +30,7 @@ export class DefaultLinkFactory extends AbstractLinkFactory<DefaultLinkModel> {
 		return (
 			<g>
 				<defs>
-					<marker id={markerId} markerWidth="8" markerHeight="8" refX="3.5" refY="3"
+					<marker id={markerId} markerWidth="8" markerHeight="8" refX="3" refY="3"
 					orient="auto" markerUnits="strokeWidth">
 					<path d="M0,0 L0,6 L3.5,3 z" className={selected ? widget.bem("--marker-selected") : widget.bem("-marker")} />
 					</marker>
