@@ -1,4 +1,4 @@
-import * as SRD from "../../src/main";
-export declare class DiamondNodeModel extends SRD.NodeModel {
+import { NodeModel } from "storm-react-diagrams";
+export declare class DiamondNodeModel extends NodeModel {
     constructor();
 }

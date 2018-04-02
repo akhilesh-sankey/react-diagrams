@@ -14,6 +14,7 @@ export declare class E2EPort extends E2EElement {
     parent: E2ENode;
     constructor(helper: E2EHelper, page: Page, element: ElementHandle, id: string, parent: E2ENode);
     link(port: E2EPort): Promise<E2ELink>;
+    linkToPoint(x: number, y: number): Promise<E2ELink>;
 }
 export declare class E2ELink extends E2EElement {
     model(): Promise<any>;

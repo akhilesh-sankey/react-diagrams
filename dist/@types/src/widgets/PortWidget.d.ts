@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { NodeModel } from "../models/NodeModel";
 import { BaseWidget, BaseWidgetProps } from "./BaseWidget";
 export interface PortProps extends BaseWidgetProps {

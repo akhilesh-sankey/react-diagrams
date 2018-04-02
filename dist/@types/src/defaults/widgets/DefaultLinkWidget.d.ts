@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { DiagramEngine } from "../../DiagramEngine";
 import { PointModel } from "../../models/PointModel";
 import { DefaultLinkModel } from "../models/DefaultLinkModel";

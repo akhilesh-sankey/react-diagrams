@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { DiagramEngine } from "../../DiagramEngine";
 import { BaseWidget, BaseWidgetProps } from "../BaseWidget";
 export interface NodeLayerProps extends BaseWidgetProps {

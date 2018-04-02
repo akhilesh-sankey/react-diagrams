@@ -1,8 +1,6 @@
 /// <reference types="react" />
-import { DefaultPortModel, DefaultLinkWidget } from "../../src/main";
+import { DefaultPortModel, DefaultLinkWidget, DefaultLinkModel, DefaultLinkFactory } from "storm-react-diagrams";
 import * as React from "react";
-import { DefaultLinkModel } from "../../src/defaults/models/DefaultLinkModel";
-import { DefaultLinkFactory } from "../../src/defaults/factories/DefaultLinkFactory";
 export declare class AdvancedLinkModel extends DefaultLinkModel {
     constructor();
 }

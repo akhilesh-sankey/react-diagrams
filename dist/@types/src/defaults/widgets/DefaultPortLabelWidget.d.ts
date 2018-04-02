@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { DefaultPortModel } from "../models/DefaultPortModel";
 import { BaseWidget, BaseWidgetProps } from "../../widgets/BaseWidget";
 export interface DefaultPortLabelProps extends BaseWidgetProps {

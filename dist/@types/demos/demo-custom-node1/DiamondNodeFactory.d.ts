@@ -1,5 +1,4 @@
-/// <reference types="react" />
-import * as SRD from "../../src/main";
+import * as SRD from "storm-react-diagrams";
 import { DiamondNodeModel } from "./DiamondNodeModel";
 export declare class DiamondNodeFactory extends SRD.AbstractNodeFactory {
     constructor();
