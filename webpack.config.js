@@ -1,21 +1,17 @@
-var webpack = require("webpack");
+const webpack = require("webpack");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+var path = require("path");
 var plugins = [];
+const production = process.env.NODE_ENV === "production";
 
 //do we minify it all
-if(process.env.NODE_ENV === 'production'){
+if (production) {
 	console.log("creating production build");
-	plugins.push(new webpack.optimize.UglifyJsPlugin({
-		mangle: {
-			keep_fnames: true
-		},
-		compress: {
-			keep_fnames: true,
-			warnings: false,
-		}
-	}));
-	plugins.push(new webpack.DefinePlugin({
-		'process.env.NODE_ENV': 'production',
-	}));
+	plugins.push(
+		new webpack.DefinePlugin({
+			"process.env.NODE_ENV": '"production"'
+		})
+	);
 }
 
 /**
@@ -24,50 +20,63 @@ if(process.env.NODE_ENV === 'production'){
 module.exports =
 	//for building the umd distribution
 	{
-		entry: './src/main.ts',
+		entry: "./src/main.ts",
 		output: {
-			filename: 'main.js',
-			path: __dirname + '/dist',
-			libraryTarget: 'umd',
-			library: 'storm-react-diagrams'
+			filename: "main.js",
+			path: __dirname + "/dist",
+			libraryTarget: "umd",
+			library: "storm-react-diagrams"
 		},
 		externals: {
 			react: {
-				root: 'React',
-				commonjs2: 'react',
-				commonjs: 'react',
-				amd: 'react'
+				root: "React",
+				commonjs2: "react",
+				commonjs: "react",
+				amd: "react"
 			},
-			'react-dom': {
-				root: 'ReactDOM',
-				commonjs2: 'react-dom',
-				commonjs: 'react-dom',
-				amd: 'react-dom'
+			"react-dom": {
+				root: "ReactDOM",
+				commonjs2: "react-dom",
+				commonjs: "react-dom",
+				amd: "react-dom"
 			},
-			"lodash": {
-				commonjs: 'lodash',
-				commonjs2: 'lodash',
-				amd: '_',
-				root: '_'
+			lodash: {
+				commonjs: "lodash",
+				commonjs2: "lodash",
+				amd: "_",
+				root: "_"
 			}
 		},
-		plugins:plugins,
+		plugins: plugins,
 		module: {
 			rules: [
 				{
-					enforce: 'pre',
+					enforce: "pre",
 					test: /\.js$/,
 					loader: "source-map-loader"
 				},
 				{
 					test: /\.tsx?$/,
-					loader: 'ts-loader'
+					loader: "ts-loader"
 				}
 			]
 		},
 		resolve: {
 			extensions: [".tsx", ".ts", ".js"]
 		},
-		devtool: process.env.NODE_ENV === 'production'?false:'eval-cheap-module-source-map'
-	}
-;
+		devtool: production ? "source-map" : "cheap-module-source-map",
+		mode: production ? "production" : "development",
+		optimization: {
+			minimizer: [
+				// we specify a custom UglifyJsPlugin here to get source maps in production
+				new UglifyJsPlugin({
+					uglifyOptions: {
+						compress: false,
+						ecma: 5,
+						mangle: false
+					},
+					sourceMap: true
+				})
+			]
+		}
+	};

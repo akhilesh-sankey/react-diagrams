@@ -1,6 +1,4 @@
 import { ElementHandle, Page } from "puppeteer";
-import { NodeModel } from "../../src/models/NodeModel";
-import { LinkModel } from "../../src/models/LinkModel";
 import * as _ from "lodash";
 
 export class E2EElement {
@@ -53,6 +51,25 @@ export class E2EPort extends E2EElement {
 
 		// drag to other port
 		this.page.mouse.move(bounds2.x, bounds2.y);
+		this.page.mouse.up();
+
+		// get the parent to get the link
+		return await this.helper.link(
+			_.difference(_.flatMap((await this.parent.model()).ports, "links"), currentLinks)[0]
+		);
+	}
+
+	async linkToPoint(x: number, y: number): Promise<E2ELink> {
+		let currentLinks = _.flatMap((await this.parent.model()).ports, "links");
+
+		let bounds = await this.element.boundingBox();
+
+		// click on this port
+		this.page.mouse.move(bounds.x, bounds.y);
+		this.page.mouse.down();
+
+		// drag to point
+		this.page.mouse.move(x, y);
 		this.page.mouse.up();
 
 		// get the parent to get the link
