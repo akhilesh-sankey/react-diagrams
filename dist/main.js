@@ -3770,7 +3770,8 @@ var DiagramEngine = /** @class */ (function (_super) {
             var minX = Math.floor(Math.min(_.minBy(_.concat(allNodesCoords, allPortsCoords, allPointsCoords), function (item) { return item.x; }).x, 0) /
                 PathFinding_1.ROUTING_SCALING_FACTOR) * PathFinding_1.ROUTING_SCALING_FACTOR;
             var maxXElement = _.maxBy(_.concat(allNodesCoords, allPortsCoords, allPointsCoords), function (item) { return item.x + item.width; });
-            var maxX; //= Math.max(maxXElement.x + maxXElement.width, canvas.offsetWidth);
+            // const maxX = Math.max(maxXElement.x + maxXElement.width, canvas.offsetWidth);
+            var maxX;
             if (maxXElement == undefined) {
                 maxX = Math.max(allNodesCoords[0].x + 0, canvas.offsetWidth);
             }
@@ -3780,7 +3781,8 @@ var DiagramEngine = /** @class */ (function (_super) {
             var minY = Math.floor(Math.min(_.minBy(_.concat(allNodesCoords, allPortsCoords, allPointsCoords), function (item) { return item.y; }).y, 0) /
                 PathFinding_1.ROUTING_SCALING_FACTOR) * PathFinding_1.ROUTING_SCALING_FACTOR;
             var maxYElement = _.maxBy(_.concat(allNodesCoords, allPortsCoords, allPointsCoords), function (item) { return item.y + item.height; });
-            var maxY; //= Math.max(maxYElement.y + maxYElement.height, canvas.offsetHeight);
+            // const maxY = Math.max(maxYElement.y + maxYElement.height, canvas.offsetHeight);
+            var maxY;
             if (maxYElement == undefined) {
                 maxY = Math.max(allNodesCoords[0].y + 0, canvas.offsetHeight);
             }
@@ -4239,8 +4241,8 @@ var Toolkit = /** @class */ (function () {
         var ycord = pathCoords[0][1] * PathFinding_1.ROUTING_SCALING_FACTOR;
         path = path.moveto(pathCoords[0][0] * PathFinding_1.ROUTING_SCALING_FACTOR, pathCoords[0][1] * PathFinding_1.ROUTING_SCALING_FACTOR);
         pathCoords.slice(1).forEach(function (coords) {
-            //path = path.lineto(coords[0] * ROUTING_SCALING_FACTOR, coords[1] * ROUTING_SCALING_FACTOR);
-            path = path.lineto(coords[0] * PathFinding_1.ROUTING_SCALING_FACTOR, (Math.abs((ycord) - (coords[1] * (PathFinding_1.ROUTING_SCALING_FACTOR))) / 2) + ycord);
+            // path = path.lineto(coords[0] * ROUTING_SCALING_FACTOR, coords[1] * ROUTING_SCALING_FACTOR);
+            path = path.lineto(coords[0] * PathFinding_1.ROUTING_SCALING_FACTOR, ((Math.abs((ycord) - (coords[1] * (PathFinding_1.ROUTING_SCALING_FACTOR))) / 2.0) + ycord));
             x = coords[0] * PathFinding_1.ROUTING_SCALING_FACTOR;
             y = coords[1] * PathFinding_1.ROUTING_SCALING_FACTOR;
         });
@@ -4507,7 +4509,14 @@ var DefaultLinkFactory = /** @class */ (function (_super) {
     DefaultLinkFactory.prototype.generateLinkSegment = function (model, widget, selected, path) {
         var markerId = main_1.Toolkit.UID();
         var markerEndUrl = "url(#" + markerId + ")";
-        return (React.createElement("g", null,
+        return (
+        // <path
+        // 	className={selected ? widget.bem("--path-selected") : ""}
+        // 	strokeWidth={model.width}
+        // 	stroke={model.color}
+        // 	d={path}
+        // />
+        React.createElement("g", null,
             React.createElement("defs", null,
                 React.createElement("marker", { id: markerId, markerWidth: "8", markerHeight: "8", refX: "3", refY: "3", orient: "auto", markerUnits: "strokeWidth" },
                     React.createElement("path", { d: "M0,0 L0,6 L3.5,3 z", className: selected ? widget.bem("--marker-selected") : widget.bem("-marker") }))),
@@ -4683,7 +4692,7 @@ var DefaultLinkModel = /** @class */ (function (_super) {
     function DefaultLinkModel(type) {
         if (type === void 0) { type = "default"; }
         var _this = _super.call(this, type) || this;
-        _this.color = "rgb(165,165,165,1.0)";
+        _this.color = "rgba(165,165,165,1.0)";
         _this.width = 2.2;
         _this.curvyness = 50;
         return _this;
@@ -5248,7 +5257,21 @@ var DefaultNodeWidget = /** @class */ (function (_super) {
         return "node " + _super.prototype.getClassName.call(this) + (this.props.node.isSelected() ? this.bem("--selected") : "");
     };
     DefaultNodeWidget.prototype.render = function () {
-        return (React.createElement("div", __assign({}, this.getProps()),
+        return (
+        // <div {...this.getProps()} style={{ background: this.props.node.color }}>
+        // 	<div className={this.bem("__title")}>
+        // 		<div className={this.bem("__name")}>{this.props.node.name}</div>
+        // 	</div>
+        // 	<div className={this.bem("__ports")}>
+        // 		<div className={this.bem("__in")}>
+        // 			{_.map(this.props.node.getInPorts(), this.generatePort.bind(this))}
+        // 		</div>
+        // 		<div className={this.bem("__out")}>
+        // 			{_.map(this.props.node.getOutPorts(), this.generatePort.bind(this))}
+        // 		</div>
+        // 	</div>
+        // </div>'
+        React.createElement("div", __assign({}, this.getProps()),
             React.createElement("div", { className: this.bem("__ports") },
                 React.createElement("div", { className: this.bem("__in") }, _.map(this.props.node.getInPorts(), this.generatePort.bind(this)))),
             React.createElement("div", __assign({}, this.getProps(), { style: { background: this.props.node.color } }),
@@ -5309,7 +5332,7 @@ var DefaultPortLabel = /** @class */ (function (_super) {
     };
     DefaultPortLabel.prototype.render = function () {
         var port = React.createElement(PortWidget_1.PortWidget, { node: this.props.model.getParent(), name: this.props.model.name });
-        var label = React.createElement("div", { className: "name hide" }, this.props.model.label);
+        var label = React.createElement("div", { className: "name portName" }, this.props.model.label);
         return (React.createElement("div", __assign({}, this.getProps()),
             this.props.model.in ? port : label,
             this.props.model.in ? label : port));

@@ -54,16 +54,16 @@ export class Toolkit {
 
 	public static generateDynamicPath(pathCoords: number[][]) {
 		let path = Path();
-		let x,y;
-		let ycord=pathCoords[0][1] * ROUTING_SCALING_FACTOR;
+		let x, y;
+		let ycord = pathCoords[0][1] * ROUTING_SCALING_FACTOR;
 		path = path.moveto(pathCoords[0][0] * ROUTING_SCALING_FACTOR, pathCoords[0][1] * ROUTING_SCALING_FACTOR);
 		pathCoords.slice(1).forEach(coords => {
-			//path = path.lineto(coords[0] * ROUTING_SCALING_FACTOR, coords[1] * ROUTING_SCALING_FACTOR);
-			path = path.lineto(coords[0] * ROUTING_SCALING_FACTOR,(Math.abs((ycord)-(coords[1] * (ROUTING_SCALING_FACTOR)))/2)+ycord);
-			x=coords[0] * ROUTING_SCALING_FACTOR;
-			y=coords[1] * ROUTING_SCALING_FACTOR;
+			// path = path.lineto(coords[0] * ROUTING_SCALING_FACTOR, coords[1] * ROUTING_SCALING_FACTOR);
+			path = path.lineto(coords[0] * ROUTING_SCALING_FACTOR, ((Math.abs((ycord) - (coords[1] * (ROUTING_SCALING_FACTOR)))/2.0) + ycord));
+			x = coords[0] * ROUTING_SCALING_FACTOR;
+			y = coords[1] * ROUTING_SCALING_FACTOR;
 		});
-		path=path.lineto(x,y);
+		path=path.lineto(x, y);
 		return path.print();
 	}
 }

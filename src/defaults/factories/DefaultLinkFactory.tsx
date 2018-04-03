@@ -25,16 +25,22 @@ export class DefaultLinkFactory extends AbstractLinkFactory<DefaultLinkModel> {
 	}
 
 	generateLinkSegment(model: DefaultLinkModel, widget: DefaultLinkWidget, selected: boolean, path: string) {
-		var markerId= Toolkit.UID();
-		var markerEndUrl = "url(#"+markerId+")";
+		const markerId = Toolkit.UID();
+		const markerEndUrl = "url(#"+markerId+")";
 		return (
+			// <path
+			// 	className={selected ? widget.bem("--path-selected") : ""}
+			// 	strokeWidth={model.width}
+			// 	stroke={model.color}
+			// 	d={path}
+			// />
 			<g>
 				<defs>
-					<marker id={markerId} markerWidth="8" markerHeight="8" refX="3" refY="3"
-					orient="auto" markerUnits="strokeWidth">
-					<path d="M0,0 L0,6 L3.5,3 z" className={selected ? widget.bem("--marker-selected") : widget.bem("-marker")} />
+					<marker id={markerId} markerWidth="8" markerHeight="8" refX="3" refY="3" orient="auto" markerUnits="strokeWidth">
+						<path d="M0,0 L0,6 L3.5,3 z" className={selected ? widget.bem("--marker-selected"):widget.bem("-marker")}/>
 					</marker>
 				</defs>
+
 				<path
 					className={selected ? widget.bem("--path-selected") : ""}
 					fill= "none"

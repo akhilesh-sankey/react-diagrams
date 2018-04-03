@@ -505,11 +505,12 @@ export class DiagramEngine extends BaseEntity<DiagramEngineListener> {
 			_.concat(allNodesCoords, allPortsCoords, allPointsCoords),
 			item => item.x + item.width
 		);
-		let maxX; //= Math.max(maxXElement.x + maxXElement.width, canvas.offsetWidth);
-		if(maxXElement==undefined){
-			 maxX = Math.max(allNodesCoords[0].x + 0, canvas.offsetWidth);
-		}else{
-			 maxX = Math.max(maxXElement.x + maxXElement.width, canvas.offsetWidth);
+		// const maxX = Math.max(maxXElement.x + maxXElement.width, canvas.offsetWidth);
+		let maxX;
+		if(maxXElement == undefined) {
+			maxX = Math.max(allNodesCoords[0].x + 0, canvas.offsetWidth);
+		} else {
+			maxX = Math.max(maxXElement.x + maxXElement.width, canvas.offsetWidth);
 		}
 		const minY =
 			Math.floor(
@@ -520,12 +521,14 @@ export class DiagramEngine extends BaseEntity<DiagramEngineListener> {
 			_.concat(allNodesCoords, allPortsCoords, allPointsCoords),
 			item => item.y + item.height
 		);
-		let maxY; //= Math.max(maxYElement.y + maxYElement.height, canvas.offsetHeight);
-		if(maxYElement==undefined){
+		// const maxY = Math.max(maxYElement.y + maxYElement.height, canvas.offsetHeight);
+		let maxY;
+		if(maxYElement == undefined) {
 			maxY = Math.max(allNodesCoords[0].y + 0, canvas.offsetHeight);
-		}else{
+		} else {
 			maxY = Math.max(maxYElement.y + maxYElement.height, canvas.offsetHeight);
 		}
+
 		return {
 			width: Math.ceil(Math.abs(minX) + maxX),
 			hAdjustmentFactor: Math.abs(minX) / ROUTING_SCALING_FACTOR + 1,

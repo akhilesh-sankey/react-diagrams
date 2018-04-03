@@ -2,37 +2,35 @@
   $p: &;
 
   display: flex;
-  //margin-top: 1px;
-  //margin-top: -5px;
-  //position: absolute;
+  // margin-top: 1px;
   z-index: 1;
+
   > * {
     align-self: center;
   }
 
   &__name {
+    // padding: 0 5px;
     display: none;
     padding: 0 30px;
   }
-   &--in{
+
+  &--in {
     margin-left: 5px;
     margin-right: 5px;
     margin-bottom: -4px;
-   }
+  }
 
-  &--out{
-    //justify-content: flex-end;
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-top: -4px;
+  &--out {
+    justify-content: flex-end;
 
     #{$p}__name {
-
       justify-content: flex-end;
       text-align: right;
     }
   }
-}
-.hide{
-  display: none;
+
+  .portName {
+    display: none;
+  }
 }

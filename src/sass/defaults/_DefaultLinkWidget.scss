@@ -10,14 +10,15 @@
   }
 
   path{
-    //fill:none;
+    // fill:none;
     pointer-events:all;
   }
 
   &--path-selected{
-    stroke: rgb(50,50,50) !important;
+    // stroke: rgb(0,192,255) !important;
     // stroke-dasharray: 10,2;
     // animation: dash 1s linear infinite;
+    stroke: rgb(50,50,50) !important;
   }
 
   &-marker{
@@ -39,10 +40,12 @@
   }
 
   &__point{
+    // fill: rgba(white,0.5);
     fill: rgba(165,165,165,1);
   }
 
   &--point-selected{
+    // fill: rgb(0,192,255);
     fill: rgb(50,50,50);
   }
 }

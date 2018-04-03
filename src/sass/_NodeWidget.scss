@@ -8,8 +8,7 @@
 
   &--selected{
     > * {
-      //border: 1px solid red !important;
-      //border-radius: 5px;
+      // border-color:rgb(0,192,255) !important;
     }
     > .srd-default-node_port{
       visibility: hidden;
