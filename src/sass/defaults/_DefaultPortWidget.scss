@@ -22,7 +22,11 @@
   }
 
   &--out {
-    justify-content: flex-end;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: -4px;
+
+    // justify-content: flex-end;
 
     #{$p}__name {
       justify-content: flex-end;
