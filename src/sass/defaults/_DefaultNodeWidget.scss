@@ -39,7 +39,12 @@
       }
     }
   }
-  
+
+  &__img {
+    height: 24px;
+    width:24px;
+  }
+
   &__name {
     // flex-grow: 1;
     // padding: 5px 5px;
