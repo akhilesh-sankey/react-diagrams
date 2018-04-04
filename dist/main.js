@@ -4981,16 +4981,24 @@ var DefaultLinkWidget = /** @class */ (function (_super) {
         };
         _this.findPathAndRelativePositionToRenderLabel = function (index) {
             // an array to hold all path lengths, making sure we hit the DOM only once to fetch this information
-            var lengths = _this.refPaths.map(function (path) { return path.getTotalLength(); });
+            var paths = _this.refPaths.map(function (g) {
+                var htmlCollection = g.children;
+                var svgPathElement = htmlCollection[1];
+                return svgPathElement;
+            });
+            var lengths = paths.map(function (path) {
+                return (Math.round(path.getTotalLength()));
+            });
+            //const lengths = paths.map(path => path.getTotalLength());
             // calculate the point where we want to display the label
             var labelPosition = lengths.reduce(function (previousValue, currentValue) { return previousValue + currentValue; }, 0) *
                 (index / (_this.props.link.labels.length + 1));
             // find the path where the label will be rendered and calculate the relative position
             var pathIndex = 0;
-            while (pathIndex < _this.refPaths.length) {
+            while (pathIndex < paths.length) {
                 if (labelPosition - lengths[pathIndex] < 0) {
                     return {
-                        path: _this.refPaths[pathIndex],
+                        path: paths[pathIndex],
                         position: labelPosition
                     };
                 }
