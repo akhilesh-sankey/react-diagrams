@@ -20,7 +20,7 @@ export declare class DefaultLinkWidget extends BaseWidget<DefaultLinkProps, Defa
     refLabels: {
         [id: string]: HTMLElement;
     };
-    refPaths: SVGPathElement[];
+    refPaths: SVGGElement[];
     pathFinding: PathFinding;
     constructor(props: DefaultLinkProps);
     calculateAllLabelPosition(): void;

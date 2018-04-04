@@ -34,7 +34,7 @@ export class DefaultLinkWidget extends BaseWidget<DefaultLinkProps, DefaultLinkS
 
 	// DOM references to the label and paths (if label is given), used to calculate dynamic positioning
 	refLabels: { [id: string]: HTMLElement };
-	refPaths: SVGPathElement[];
+	refPaths: SVGGElement[];
 
 	pathFinding: PathFinding; // only set when smart routing is active
 
@@ -183,7 +183,15 @@ export class DefaultLinkWidget extends BaseWidget<DefaultLinkProps, DefaultLinkS
 
 	findPathAndRelativePositionToRenderLabel = (index: number): { path: any; position: number } => {
 		// an array to hold all path lengths, making sure we hit the DOM only once to fetch this information
-		const lengths = this.refPaths.map(path => path.getTotalLength());
+		let paths = this.refPaths.map(g => {
+			const htmlCollection = g.children as HTMLCollection;
+			const svgPathElement = htmlCollection[1] as SVGPathElement;
+			return svgPathElement;
+		});
+		const lengths = paths.map(path => {
+			return (Math.round(path.getTotalLength()));
+		});
+		//const lengths = paths.map(path => path.getTotalLength());
 
 		// calculate the point where we want to display the label
 		let labelPosition =
@@ -192,10 +200,10 @@ export class DefaultLinkWidget extends BaseWidget<DefaultLinkProps, DefaultLinkS
 
 		// find the path where the label will be rendered and calculate the relative position
 		let pathIndex = 0;
-		while (pathIndex < this.refPaths.length) {
+		while (pathIndex < paths.length) {
 			if (labelPosition - lengths[pathIndex] < 0) {
 				return {
-					path: this.refPaths[pathIndex],
+					path: paths[pathIndex],
 					position: labelPosition
 				};
 			}
