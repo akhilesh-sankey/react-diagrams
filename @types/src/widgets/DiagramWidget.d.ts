@@ -29,6 +29,9 @@ export interface DiagramState {
  */
 export declare class DiagramWidget extends BaseWidget<DiagramProps, DiagramState> {
     static defaultProps: DiagramProps;
+    currentNode: {
+        nodeId: string;
+    };
     onKeyUpPointer: (this: Window, ev: KeyboardEvent) => void;
     constructor(props: DiagramProps);
     componentWillUnmount(): void;
@@ -36,6 +39,7 @@ export declare class DiagramWidget extends BaseWidget<DiagramProps, DiagramState
     componentWillUpdate(nextProps: DiagramProps): void;
     componentDidUpdate(): void;
     componentDidMount(): void;
+    displayPorts(model: any, check: boolean): void;
     /**
      * Gets a model and element under the mouse cursor
      */

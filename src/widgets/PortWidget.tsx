@@ -38,6 +38,7 @@ export class PortWidget extends BaseWidget<PortProps, PortState> {
 				}}
 				data-name={this.props.name}
 				data-nodeid={this.props.node.getID()}
+				id={"port"+this.props.name}
 			/>
 		);
 	}

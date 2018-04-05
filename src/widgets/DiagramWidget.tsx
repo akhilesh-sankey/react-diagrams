@@ -58,6 +58,10 @@ export class DiagramWidget extends BaseWidget<DiagramProps, DiagramState> {
 		deleteKeys: [46, 8]
 	};
 
+	currentNode={
+		nodeId: ''
+	};
+
 	onKeyUpPointer: (this: Window, ev: KeyboardEvent) => void = null;
 
 	constructor(props: DiagramProps) {
@@ -132,6 +136,33 @@ export class DiagramWidget extends BaseWidget<DiagramProps, DiagramState> {
 			window.focus();
 		}
 	}
+	/*
+	* Highlight all the available IN ports
+	*/
+	displayPorts(model,check: boolean){
+		_.forEach(model.getNodes(), node => {
+			_.forEach(node.ports, port => {
+				if(port['in']==true && Object.keys(port['links']).length===0){
+					console.log("port"+port['name'],this.currentNode.nodeId);
+					if(this.currentNode.nodeId!=node['id'] && check){
+						console.log(check);
+						var nodeElement=document.getElementById(node['id']).childNodes[0] as HTMLElement;
+						nodeElement.className="srd-default-node__ports-status";
+						var element= document.getElementById("port"+port['name']) as HTMLElement;
+						element.style.background="red";
+					}
+					else if(!check){
+						console.log(check)
+						var nodeElement=document.getElementById(node['id']).childNodes[0] as HTMLElement;
+						nodeElement.className="srd-default-node__ports";
+						var element= document.getElementById("port"+port['name']) as HTMLElement;
+						element.style.background="white";
+					}
+				}
+			})
+		});	
+	}
+
 
 	/**
 	 * Gets a model and element under the mouse cursor
@@ -142,7 +173,12 @@ export class DiagramWidget extends BaseWidget<DiagramProps, DiagramState> {
 
 		//is it a port
 		var element = Toolkit.closest(target, ".port[data-name]");
+		
 		if (element) {
+			this.currentNode.nodeId=element.getAttribute('data-nodeid');
+			//this.setState({ nodeid:  });
+			var nodeElement = Toolkit.closest(target, ".node[data-nodeid]") as HTMLElement;
+			this.displayPorts(diagramModel,false);
 			var nodeElement = Toolkit.closest(target, ".node[data-nodeid]") as HTMLElement;
 			return {
 				model: diagramModel
@@ -155,6 +191,7 @@ export class DiagramWidget extends BaseWidget<DiagramProps, DiagramState> {
 		//look for a point
 		element = Toolkit.closest(target, ".point[data-id]");
 		if (element) {
+			this.displayPorts(diagramModel,false);
 			return {
 				model: diagramModel
 					.getLink(element.getAttribute("data-linkid"))
@@ -166,6 +203,7 @@ export class DiagramWidget extends BaseWidget<DiagramProps, DiagramState> {
 		//look for a link
 		element = Toolkit.closest(target, "[data-linkid]");
 		if (element) {
+			this.displayPorts(diagramModel,false);
 			return {
 				model: diagramModel.getLink(element.getAttribute("data-linkid")),
 				element: element
@@ -175,6 +213,7 @@ export class DiagramWidget extends BaseWidget<DiagramProps, DiagramState> {
 		//look for a node
 		element = Toolkit.closest(target, ".node[data-nodeid]");
 		if (element) {
+			this.displayPorts(diagramModel,false);
 			return {
 				model: diagramModel.getNode(element.getAttribute("data-nodeid")),
 				element: element
@@ -495,8 +534,16 @@ export class DiagramWidget extends BaseWidget<DiagramProps, DiagramState> {
 						if (!this.props.diagramEngine.isModelLocked(model.model)) {
 							var relative = diagramEngine.getRelativeMousePoint(event);
 							var sourcePort = model.model;
-							var link = sourcePort.createLinkModel();
-							link.setSourcePort(sourcePort);
+							//var link = sourcePort.createLinkModel();
+							//link.setSourcePort(sourcePort);
+							// Check for out ports to create links.
+							var link;
+							if(!sourcePort['in'] && sourcePort['maximumLinks']==1 && Object.keys(sourcePort['links']).length==0 ){
+								link= sourcePort.createLinkModel();
+								link.setSourcePort(sourcePort);								
+								this.displayPorts( this.props.diagramEngine.getDiagramModel(),true);
+								this.forceUpdate();
+							}
 
 							if (link) {
 								link.removeMiddlePoints();

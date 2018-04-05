@@ -5279,7 +5279,7 @@ var DefaultNodeWidget = /** @class */ (function (_super) {
         // 		</div>
         // 	</div>
         // </div>'
-        React.createElement("div", __assign({}, this.getProps()),
+        React.createElement("div", __assign({ id: this.props.node.id }, this.getProps()),
             React.createElement("div", { className: this.bem("__ports") },
                 React.createElement("div", { className: this.bem("__in") }, _.map(this.props.node.getInPorts(), this.generatePort.bind(this)))),
             React.createElement("div", __assign({}, this.getProps(), { style: { background: this.props.node.color } }),
@@ -6731,6 +6731,9 @@ var DiagramWidget = /** @class */ (function (_super) {
     __extends(DiagramWidget, _super);
     function DiagramWidget(props) {
         var _this = _super.call(this, "srd-diagram", props) || this;
+        _this.currentNode = {
+            nodeId: ''
+        };
         _this.onKeyUpPointer = null;
         _this.onMouseMove = _this.onMouseMove.bind(_this);
         _this.onMouseUp = _this.onMouseUp.bind(_this);
@@ -6797,6 +6800,33 @@ var DiagramWidget = /** @class */ (function (_super) {
             window.focus();
         }
     };
+    /*
+    * Highlight all the available IN ports
+    */
+    DiagramWidget.prototype.displayPorts = function (model, check) {
+        var _this = this;
+        _.forEach(model.getNodes(), function (node) {
+            _.forEach(node.ports, function (port) {
+                if (port['in'] == true && Object.keys(port['links']).length === 0) {
+                    console.log("port" + port['name'], _this.currentNode.nodeId);
+                    if (_this.currentNode.nodeId != node['id'] && check) {
+                        console.log(check);
+                        var nodeElement = document.getElementById(node['id']).childNodes[0];
+                        nodeElement.className = "srd-default-node__ports-status";
+                        var element = document.getElementById("port" + port['name']);
+                        element.style.background = "red";
+                    }
+                    else if (!check) {
+                        console.log(check);
+                        var nodeElement = document.getElementById(node['id']).childNodes[0];
+                        nodeElement.className = "srd-default-node__ports";
+                        var element = document.getElementById("port" + port['name']);
+                        element.style.background = "white";
+                    }
+                }
+            });
+        });
+    };
     /**
      * Gets a model and element under the mouse cursor
      */
@@ -6806,6 +6836,10 @@ var DiagramWidget = /** @class */ (function (_super) {
         //is it a port
         var element = Toolkit_1.Toolkit.closest(target, ".port[data-name]");
         if (element) {
+            this.currentNode.nodeId = element.getAttribute('data-nodeid');
+            //this.setState({ nodeid:  });
+            var nodeElement = Toolkit_1.Toolkit.closest(target, ".node[data-nodeid]");
+            this.displayPorts(diagramModel, false);
             var nodeElement = Toolkit_1.Toolkit.closest(target, ".node[data-nodeid]");
             return {
                 model: diagramModel
@@ -6817,6 +6851,7 @@ var DiagramWidget = /** @class */ (function (_super) {
         //look for a point
         element = Toolkit_1.Toolkit.closest(target, ".point[data-id]");
         if (element) {
+            this.displayPorts(diagramModel, false);
             return {
                 model: diagramModel
                     .getLink(element.getAttribute("data-linkid"))
@@ -6827,6 +6862,7 @@ var DiagramWidget = /** @class */ (function (_super) {
         //look for a link
         element = Toolkit_1.Toolkit.closest(target, "[data-linkid]");
         if (element) {
+            this.displayPorts(diagramModel, false);
             return {
                 model: diagramModel.getLink(element.getAttribute("data-linkid")),
                 element: element
@@ -6835,6 +6871,7 @@ var DiagramWidget = /** @class */ (function (_super) {
         //look for a node
         element = Toolkit_1.Toolkit.closest(target, ".node[data-nodeid]");
         if (element) {
+            this.displayPorts(diagramModel, false);
             return {
                 model: diagramModel.getNode(element.getAttribute("data-nodeid")),
                 element: element
@@ -7119,8 +7156,16 @@ var DiagramWidget = /** @class */ (function (_super) {
                     if (!_this.props.diagramEngine.isModelLocked(model.model)) {
                         var relative = diagramEngine.getRelativeMousePoint(event);
                         var sourcePort = model.model;
-                        var link = sourcePort.createLinkModel();
-                        link.setSourcePort(sourcePort);
+                        //var link = sourcePort.createLinkModel();
+                        //link.setSourcePort(sourcePort);
+                        // Check for out ports to create links.
+                        var link;
+                        if (!sourcePort['in'] && sourcePort['maximumLinks'] == 1 && Object.keys(sourcePort['links']).length == 0) {
+                            link = sourcePort.createLinkModel();
+                            link.setSourcePort(sourcePort);
+                            _this.displayPorts(_this.props.diagramEngine.getDiagramModel(), true);
+                            _this.forceUpdate();
+                        }
                         if (link) {
                             link.removeMiddlePoints();
                             if (link.getSourcePort() !== sourcePort) {
@@ -7333,7 +7378,7 @@ var PortWidget = /** @class */ (function (_super) {
                 _this.setState({ selected: true });
             }, onMouseLeave: function () {
                 _this.setState({ selected: false });
-            }, "data-name": this.props.name, "data-nodeid": this.props.node.getID() })));
+            }, "data-name": this.props.name, "data-nodeid": this.props.node.getID(), id: "port" + this.props.name })));
     };
     return PortWidget;
 }(BaseWidget_1.BaseWidget));
