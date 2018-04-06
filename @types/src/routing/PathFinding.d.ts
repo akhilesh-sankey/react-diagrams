@@ -1,5 +1,5 @@
 import { DiagramEngine } from "../main";
-export declare const ROUTING_SCALING_FACTOR = 5;
+export declare const ROUTING_SCALING_FACTOR = 2;
 export default class PathFinding {
     instance: any;
     diagramEngine: DiagramEngine;

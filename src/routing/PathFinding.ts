@@ -6,7 +6,7 @@ it can be very expensive to calculate routes when every single pixel on the canv
 is individually represented. Using the factor below, we combine values in order
 to achieve the best trade-off between accuracy and performance.
 */
-export const ROUTING_SCALING_FACTOR = 5;
+export const ROUTING_SCALING_FACTOR = 2;
 
 const pathFinderInstance = new PF.JumpPointFinder({
 	heuristic: PF.Heuristic.manhattan,

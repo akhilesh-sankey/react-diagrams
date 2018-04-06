@@ -6555,7 +6555,7 @@ it can be very expensive to calculate routes when every single pixel on the canv
 is individually represented. Using the factor below, we combine values in order
 to achieve the best trade-off between accuracy and performance.
 */
-exports.ROUTING_SCALING_FACTOR = 5;
+exports.ROUTING_SCALING_FACTOR = 2;
 var pathFinderInstance = new PF.JumpPointFinder({
     heuristic: PF.Heuristic.manhattan,
     diagonalMovement: PF.DiagonalMovement.Never
@@ -6808,16 +6808,13 @@ var DiagramWidget = /** @class */ (function (_super) {
         _.forEach(model.getNodes(), function (node) {
             _.forEach(node.ports, function (port) {
                 if (port['in'] == true && Object.keys(port['links']).length === 0) {
-                    console.log("port" + port['name'], _this.currentNode.nodeId);
                     if (_this.currentNode.nodeId != node['id'] && check) {
-                        console.log(check);
                         var nodeElement = document.getElementById(node['id']).childNodes[0];
                         nodeElement.className = "srd-default-node__ports-status";
                         var element = document.getElementById("port" + port['name']);
                         element.style.background = "red";
                     }
                     else if (!check) {
-                        console.log(check);
                         var nodeElement = document.getElementById(node['id']).childNodes[0];
                         nodeElement.className = "srd-default-node__ports";
                         var element = document.getElementById("port" + port['name']);

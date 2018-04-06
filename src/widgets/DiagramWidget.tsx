@@ -143,16 +143,13 @@ export class DiagramWidget extends BaseWidget<DiagramProps, DiagramState> {
 		_.forEach(model.getNodes(), node => {
 			_.forEach(node.ports, port => {
 				if(port['in']==true && Object.keys(port['links']).length===0){
-					console.log("port"+port['name'],this.currentNode.nodeId);
 					if(this.currentNode.nodeId!=node['id'] && check){
-						console.log(check);
 						var nodeElement=document.getElementById(node['id']).childNodes[0] as HTMLElement;
 						nodeElement.className="srd-default-node__ports-status";
 						var element= document.getElementById("port"+port['name']) as HTMLElement;
 						element.style.background="red";
 					}
 					else if(!check){
-						console.log(check)
 						var nodeElement=document.getElementById(node['id']).childNodes[0] as HTMLElement;
 						nodeElement.className="srd-default-node__ports";
 						var element= document.getElementById("port"+port['name']) as HTMLElement;
