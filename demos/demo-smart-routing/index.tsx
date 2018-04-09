@@ -24,13 +24,13 @@ export default () => {
 	node1.setPosition(340, 350);
 
 	const node2 = new DefaultNodeModel("Node B", "rgb(255,255,0)");
-	const port2 = node2.addPort(new DefaultPortModel(false, "out-1", "Out"));
+	const port2 = node2.addPort(new DefaultPortModel(false, "out-2", "Out"));
 	node2.setPosition(240, 80);
 	const node3 = new DefaultNodeModel("Node C", "rgb(192,255,255)");
-	const port3 = node3.addPort(new DefaultPortModel(true, "in1", "In"));
+	const port3 = node3.addPort(new DefaultPortModel(true, "in-1", "In"));
 	node3.setPosition(540, 180);
 	const node4 = new DefaultNodeModel("Node D", "rgb(192,0,255)");
-	const port4 = node4.addPort(new DefaultPortModel(true, "in2", "In"));
+	const port4 = node4.addPort(new DefaultPortModel(true, "in-2", "In"));
 	node4.setPosition(95, 185);
 	const node5 = new DefaultNodeModel("Node E", "rgb(192,255,0)");
 	node5.setPosition(250, 180);

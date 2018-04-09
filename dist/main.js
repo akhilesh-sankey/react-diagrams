@@ -6731,9 +6731,7 @@ var DiagramWidget = /** @class */ (function (_super) {
     __extends(DiagramWidget, _super);
     function DiagramWidget(props) {
         var _this = _super.call(this, "srd-diagram", props) || this;
-        _this.currentNode = {
-            nodeId: ''
-        };
+        _this.nodeId = '';
         _this.onKeyUpPointer = null;
         _this.onMouseMove = _this.onMouseMove.bind(_this);
         _this.onMouseUp = _this.onMouseUp.bind(_this);
@@ -6801,24 +6799,24 @@ var DiagramWidget = /** @class */ (function (_super) {
         }
     };
     /*
-    * Highlight all the available IN ports
-    */
+     * Highlight all the available IN ports
+     */
     DiagramWidget.prototype.displayPorts = function (model, check) {
         var _this = this;
         _.forEach(model.getNodes(), function (node) {
             _.forEach(node.ports, function (port) {
-                if (port['in'] == true && Object.keys(port['links']).length === 0) {
-                    if (_this.currentNode.nodeId != node['id'] && check) {
+                if (port['in'] === true && Object.keys(port['links']).length === 0) {
+                    if (_this.nodeId !== node['id'] && check) {
                         var nodeElement = document.getElementById(node['id']).childNodes[0];
                         nodeElement.className = "srd-default-node__ports-status";
                         var element = document.getElementById("port" + port['name']);
-                        element.style.background = "red";
+                        element.style.background = "rgb(255,107,53)";
                     }
                     else if (!check) {
                         var nodeElement = document.getElementById(node['id']).childNodes[0];
                         nodeElement.className = "srd-default-node__ports";
                         var element = document.getElementById("port" + port['name']);
-                        element.style.background = "white";
+                        element.style.background = "rgb(255,255,255)";
                     }
                 }
             });
@@ -6833,9 +6831,7 @@ var DiagramWidget = /** @class */ (function (_super) {
         //is it a port
         var element = Toolkit_1.Toolkit.closest(target, ".port[data-name]");
         if (element) {
-            this.currentNode.nodeId = element.getAttribute('data-nodeid');
-            //this.setState({ nodeid:  });
-            var nodeElement = Toolkit_1.Toolkit.closest(target, ".node[data-nodeid]");
+            this.nodeId = element.getAttribute('data-nodeid');
             this.displayPorts(diagramModel, false);
             var nodeElement = Toolkit_1.Toolkit.closest(target, ".node[data-nodeid]");
             return {
@@ -7157,7 +7153,7 @@ var DiagramWidget = /** @class */ (function (_super) {
                         //link.setSourcePort(sourcePort);
                         // Check for out ports to create links.
                         var link;
-                        if (!sourcePort['in'] && sourcePort['maximumLinks'] == 1 && Object.keys(sourcePort['links']).length == 0) {
+                        if (!sourcePort['in'] && sourcePort['maximumLinks'] === 1 && Object.keys(sourcePort['links']).length === 0) {
                             link = sourcePort.createLinkModel();
                             link.setSourcePort(sourcePort);
                             _this.displayPorts(_this.props.diagramEngine.getDiagramModel(), true);

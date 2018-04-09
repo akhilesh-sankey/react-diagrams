@@ -29,9 +29,7 @@ export interface DiagramState {
  */
 export declare class DiagramWidget extends BaseWidget<DiagramProps, DiagramState> {
     static defaultProps: DiagramProps;
-    currentNode: {
-        nodeId: string;
-    };
+    nodeId: string;
     onKeyUpPointer: (this: Window, ev: KeyboardEvent) => void;
     constructor(props: DiagramProps);
     componentWillUnmount(): void;

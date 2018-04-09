@@ -65,14 +65,13 @@
     visibility: hidden;
     // background-image: linear-gradient(rgba(black, 0.1), rgba(black, 0.2));
   }
-  
+
   &__ports-status {
     border: none !important;
     text-align: center;
     justify-content: center;
     display: flex;
     visibility: visible;
-    // background-image: linear-gradient(rgba(black, 0.1), rgba(black, 0.2));
   }
 
   &__in, &__out{
