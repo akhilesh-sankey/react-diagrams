@@ -7157,7 +7157,6 @@ var DiagramWidget = /** @class */ (function (_super) {
                             link = sourcePort.createLinkModel();
                             link.setSourcePort(sourcePort);
                             _this.displayPorts(_this.props.diagramEngine.getDiagramModel(), true);
-                            _this.forceUpdate();
                         }
                         if (link) {
                             link.removeMiddlePoints();

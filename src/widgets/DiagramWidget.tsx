@@ -530,13 +530,13 @@ export class DiagramWidget extends BaseWidget<DiagramProps, DiagramState> {
 							var sourcePort = model.model;
 							//var link = sourcePort.createLinkModel();
 							//link.setSourcePort(sourcePort);
+
 							// Check for out ports to create links.
 							var link;
 							if(!sourcePort['in'] && sourcePort['maximumLinks']===1 && Object.keys(sourcePort['links']).length===0) {
 								link= sourcePort.createLinkModel();
 								link.setSourcePort(sourcePort);
 								this.displayPorts(this.props.diagramEngine.getDiagramModel(), true);
-								this.forceUpdate();
 							}
 
 							if (link) {
