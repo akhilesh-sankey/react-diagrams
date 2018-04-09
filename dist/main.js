@@ -5286,7 +5286,7 @@ var DefaultNodeWidget = /** @class */ (function (_super) {
                 React.createElement("div", { className: this.bem("__title") },
                     React.createElement("div", { className: this.bem("__img"), style: { background: this.props.node.bgImage } }),
                     React.createElement("div", { className: this.bem("__name") }, this.props.node.name))),
-            React.createElement("div", __assign({}, this.getProps(), { className: this.bem("__ports") }),
+            React.createElement("div", { className: this.bem("__ports") },
                 React.createElement("div", __assign({}, this.getProps(), { className: this.bem("__out") }), _.map(this.props.node.getOutPorts(), this.generatePort.bind(this))))));
     };
     return DefaultNodeWidget;

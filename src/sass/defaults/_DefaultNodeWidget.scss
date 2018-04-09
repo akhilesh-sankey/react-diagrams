@@ -1,6 +1,6 @@
 .srd-default-node {
   // background-color: rgb(30, 30, 30);
-  border-radius: 5px;
+  border-radius: 4px;
   // font-family: sans-serif;
   color: white;
   // border: solid 2px black;
@@ -9,13 +9,15 @@
   font-size: 12px;
   text-align: -webkit-center;
 
+  border: 1px solid transparent !important;
+
   &:hover > .srd-default-node__ports {
     visibility: visible;
   }
 
    &--selected{
     > * {
-      border: 1px solid rgb(255,107,53) !important;
+      border: 0.75px solid rgb(255,107,53) !important;
       border-radius: 4px;
       visibility: visible !important;
     }
