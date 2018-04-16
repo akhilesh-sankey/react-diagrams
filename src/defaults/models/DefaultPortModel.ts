@@ -40,7 +40,11 @@ export class DefaultPortModel extends PortModel {
 			if(this.in) {
 				return false;
 			}
-			return this.in !== port.in;
+			if(Object.keys(port['links']).length<=1){
+				return this.in !== port.in;
+			}else{
+				return false
+			}
 		}
 		return true;
 	}
