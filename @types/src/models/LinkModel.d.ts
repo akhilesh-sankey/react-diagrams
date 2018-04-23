@@ -46,6 +46,9 @@ export declare class LinkModel<T extends LinkModelListener = LinkModelListener> 
         } & {
             type: string;
             selected: boolean;
+        } & {
+            offsetX: number;
+            offsetY: number;
         })[];
     };
     doClone(lookupTable: {}, clone: any): void;

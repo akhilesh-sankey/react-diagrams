@@ -4635,6 +4635,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var LabelModel_1 = __webpack_require__(/*! ../../models/LabelModel */ "./src/models/LabelModel.ts");
+var _ = __webpack_require__(/*! lodash */ "lodash");
 var DefaultLabelModel = /** @class */ (function (_super) {
     __extends(DefaultLabelModel, _super);
     function DefaultLabelModel() {
@@ -4644,6 +4645,15 @@ var DefaultLabelModel = /** @class */ (function (_super) {
     }
     DefaultLabelModel.prototype.setLabel = function (label) {
         this.label = label;
+    };
+    DefaultLabelModel.prototype.deSerialize = function (ob, engine) {
+        _super.prototype.deSerialize.call(this, ob, engine);
+        this.label = ob.label;
+    };
+    DefaultLabelModel.prototype.serialize = function () {
+        return _.merge(_super.prototype.serialize.call(this), {
+            label: this.label
+        });
     };
     return DefaultLabelModel;
 }(LabelModel_1.LabelModel));
@@ -5981,6 +5991,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var BaseModel_1 = __webpack_require__(/*! ./BaseModel */ "./src/models/BaseModel.ts");
+var _ = __webpack_require__(/*! lodash */ "lodash");
 var LabelModel = /** @class */ (function (_super) {
     __extends(LabelModel, _super);
     function LabelModel(type, id) {
@@ -5989,6 +6000,17 @@ var LabelModel = /** @class */ (function (_super) {
         _this.offsetY = 0;
         return _this;
     }
+    LabelModel.prototype.deSerialize = function (ob, engine) {
+        _super.prototype.deSerialize.call(this, ob, engine);
+        this.offsetX = ob.offsetX;
+        this.offsetY = ob.offsetY;
+    };
+    LabelModel.prototype.serialize = function () {
+        return _.merge(_super.prototype.serialize.call(this), {
+            offsetX: this.offsetX,
+            offsetY: this.offsetY
+        });
+    };
     return LabelModel;
 }(BaseModel_1.BaseModel));
 exports.LabelModel = LabelModel;

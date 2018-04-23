@@ -78,6 +78,9 @@ export declare class DiagramModel extends BaseEntity<DiagramListener> {
             } & {
                 type: string;
                 selected: boolean;
+            } & {
+                offsetX: number;
+                offsetY: number;
             })[];
         })[];
         nodes: ({

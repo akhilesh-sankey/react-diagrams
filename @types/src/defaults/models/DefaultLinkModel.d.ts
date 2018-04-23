@@ -43,6 +43,9 @@ export declare class DefaultLinkModel extends LinkModel<DefaultLinkModelListener
         } & {
             type: string;
             selected: boolean;
+        } & {
+            offsetX: number;
+            offsetY: number;
         })[];
     } & {
         width: number;

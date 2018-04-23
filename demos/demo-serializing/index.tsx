@@ -1,4 +1,4 @@
-import { DiagramEngine, DiagramModel, DefaultNodeModel, LinkModel, DiagramWidget } from "storm-react-diagrams";
+import { DiagramEngine, DiagramModel, DefaultNodeModel, LinkModel, DiagramWidget, DefaultLinkModel } from "storm-react-diagrams";
 import * as React from "react";
 import { DemoWorkspaceWidget } from "../.helpers/DemoWorkspaceWidget";
 import { action } from "@storybook/addon-actions";
@@ -24,6 +24,7 @@ export default () => {
 
 	//3-C) link the 2 nodes together
 	var link1 = port1.link(port2);
+	(link1 as DefaultLinkModel).addLabel("Hello World!");
 
 	//4) add the models to the root graph
 	model.addAll(node1, node2, link1);
