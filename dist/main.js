@@ -5136,23 +5136,28 @@ var DefaultLinkWidget = /** @class */ (function (_super) {
         var points = this.props.link.points;
         var paths = [];
         if (this.isSmartRoutingApplicable()) {
-            // first step: calculate a direct path between the points being linked
-            var directPathCoords = this.pathFinding.calculateDirectPath(_.first(points), _.last(points));
-            var routingMatrix = diagramEngine.getRoutingMatrix();
-            // now we need to extract, from the routing matrix, the very first walkable points
-            // so they can be used as origin and destination of the link to be created
-            var smartLink = this.pathFinding.calculateLinkStartEndCoords(routingMatrix, directPathCoords);
-            if (smartLink) {
-                var start = smartLink.start, end = smartLink.end, pathToStart = smartLink.pathToStart, pathToEnd = smartLink.pathToEnd;
-                // second step: calculate a path avoiding hitting other elements
-                var simplifiedPath = this.pathFinding.calculateDynamicPath(routingMatrix, start, end, pathToStart, pathToEnd);
-                paths.push(
-                //smooth: boolean, extraProps: any, id: string | number, firstPoint: PointModel, lastPoint: PointModel
-                this.generateLink(Toolkit_1.Toolkit.generateDynamicPath(simplifiedPath), {
-                    onMouseDown: function (event) {
-                        _this.addPointToLink(event, 1);
-                    }
-                }, "0"));
+            try {
+                // first step: calculate a direct path between the points being linked
+                var directPathCoords = this.pathFinding.calculateDirectPath(_.first(points), _.last(points));
+                var routingMatrix = diagramEngine.getRoutingMatrix();
+                // now we need to extract, from the routing matrix, the very first walkable points
+                // so they can be used as origin and destination of the link to be created
+                var smartLink = this.pathFinding.calculateLinkStartEndCoords(routingMatrix, directPathCoords);
+                if (smartLink) {
+                    var start = smartLink.start, end = smartLink.end, pathToStart = smartLink.pathToStart, pathToEnd = smartLink.pathToEnd;
+                    // second step: calculate a path avoiding hitting other elements
+                    var simplifiedPath = this.pathFinding.calculateDynamicPath(routingMatrix, start, end, pathToStart, pathToEnd);
+                    paths.push(
+                    //smooth: boolean, extraProps: any, id: string | number, firstPoint: PointModel, lastPoint: PointModel
+                    this.generateLink(Toolkit_1.Toolkit.generateDynamicPath(simplifiedPath), {
+                        onMouseDown: function (event) {
+                            _this.addPointToLink(event, 1);
+                        }
+                    }, "0"));
+                }
+            }
+            catch (err) {
+                // TO BE FIXED: smart rounting path finding issue
             }
         }
         // true when smart routing was skipped or not enabled.

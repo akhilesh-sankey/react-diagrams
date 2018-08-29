@@ -274,38 +274,42 @@ export class DefaultLinkWidget extends BaseWidget<DefaultLinkProps, DefaultLinkS
 		var paths = [];
 
 		if (this.isSmartRoutingApplicable()) {
-			// first step: calculate a direct path between the points being linked
-			const directPathCoords = this.pathFinding.calculateDirectPath(_.first(points), _.last(points));
+			try {
+				// first step: calculate a direct path between the points being linked
+				const directPathCoords = this.pathFinding.calculateDirectPath(_.first(points), _.last(points));
 
-			const routingMatrix = diagramEngine.getRoutingMatrix();
-			// now we need to extract, from the routing matrix, the very first walkable points
-			// so they can be used as origin and destination of the link to be created
-			const smartLink = this.pathFinding.calculateLinkStartEndCoords(routingMatrix, directPathCoords);
+				const routingMatrix = diagramEngine.getRoutingMatrix();
+				// now we need to extract, from the routing matrix, the very first walkable points
+				// so they can be used as origin and destination of the link to be created
+				const smartLink = this.pathFinding.calculateLinkStartEndCoords(routingMatrix, directPathCoords);
 
-			if (smartLink) {
-				const { start, end, pathToStart, pathToEnd } = smartLink;
+				if (smartLink) {
+					const { start, end, pathToStart, pathToEnd } = smartLink;
 
-				// second step: calculate a path avoiding hitting other elements
-				const simplifiedPath = this.pathFinding.calculateDynamicPath(
-					routingMatrix,
-					start,
-					end,
-					pathToStart,
-					pathToEnd
-				);
+					// second step: calculate a path avoiding hitting other elements
+					const simplifiedPath = this.pathFinding.calculateDynamicPath(
+						routingMatrix,
+						start,
+						end,
+						pathToStart,
+						pathToEnd
+					);
 
-				paths.push(
-					//smooth: boolean, extraProps: any, id: string | number, firstPoint: PointModel, lastPoint: PointModel
-					this.generateLink(
-						Toolkit.generateDynamicPath(simplifiedPath),
-						{
-							onMouseDown: event => {
-								this.addPointToLink(event, 1);
-							}
-						},
-						"0"
-					)
-				);
+					paths.push(
+						//smooth: boolean, extraProps: any, id: string | number, firstPoint: PointModel, lastPoint: PointModel
+						this.generateLink(
+							Toolkit.generateDynamicPath(simplifiedPath),
+							{
+								onMouseDown: event => {
+									this.addPointToLink(event, 1);
+								}
+							},
+							"0"
+						)
+					);
+				}
+			} catch(err) {
+				// TO BE FIXED: smart rounting path finding issue
 			}
 		}
 
