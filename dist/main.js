@@ -4229,11 +4229,19 @@ var Toolkit = /** @class */ (function () {
         return "M" + firstPoint.x + "," + firstPoint.y + " L " + lastPoint.x + "," + lastPoint.y;
     };
     Toolkit.generateCurvePath = function (firstPoint, lastPoint, curvy) {
+        // var isHorizontal = Math.abs(firstPoint.x - lastPoint.x) > Math.abs(firstPoint.y - lastPoint.y);
+        // var curvyX = isHorizontal ? curvy : 0;
+        // var curvyY = isHorizontal ? 0 : curvy;
         if (curvy === void 0) { curvy = 0; }
-        var isHorizontal = Math.abs(firstPoint.x - lastPoint.x) > Math.abs(firstPoint.y - lastPoint.y);
-        var curvyX = isHorizontal ? curvy : 0;
-        var curvyY = isHorizontal ? 0 : curvy;
-        return "M" + firstPoint.x + "," + firstPoint.y + " C " + (firstPoint.x + curvyX) + "," + (firstPoint.y + curvyY) + "\n    " + (lastPoint.x - curvyX) + "," + (lastPoint.y - curvyY) + " " + lastPoint.x + "," + lastPoint.y;
+        // return `M${firstPoint.x},${firstPoint.y} C ${firstPoint.x + curvyX},${firstPoint.y + curvyY}
+        // ${lastPoint.x - curvyX},${lastPoint.y - curvyY} ${lastPoint.x},${lastPoint.y}`;
+        // Added behaviour similart to smart routing
+        var path = Path();
+        path = path.moveto(firstPoint.x, firstPoint.y);
+        path = path.lineto(firstPoint.x, lastPoint.y + ((firstPoint.y - lastPoint.y) / 2));
+        path = path.lineto(lastPoint.x, lastPoint.y + ((firstPoint.y - lastPoint.y) / 2));
+        path = path.lineto(lastPoint.x, lastPoint.y);
+        return path.print();
     };
     Toolkit.generateDynamicPath = function (pathCoords) {
         var path = Path();
